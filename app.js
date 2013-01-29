@@ -37,11 +37,11 @@ app.get("/maps", function (req, res) {
   renderMap("h1", req, res);
 });
 
-app.get("/maps/h1", function (req, res) {
+app.get("/mapz/h1", function (req, res) {
   renderMap("h1", req, res);
 });
 
-app.get("/maps/npup", function (req, res) {
+app.get("/mapz/npup", function (req, res) {
   renderMap("npup", req, res);
 });
 
