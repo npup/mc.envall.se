@@ -1,0 +1,11 @@
+{
+  "name": "pp-attendance-event-attendance",
+  "description": "mockup for teacher event attendance registering",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.0.6"
+    , "jade": "0.26.1"
+    , "stylus": "0.32.0"
+  }
+}

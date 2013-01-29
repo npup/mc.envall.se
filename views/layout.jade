@@ -1,0 +1,27 @@
+!!! 5
+html
+
+  head
+    title= pt
+    - each file in cssAll
+      link(rel="stylesheet", type="text/css", href="/css/"+file)
+    - each file in cssCustom
+      link(rel="stylesheet", type="text/css", href="/css/"+file)
+
+  body(class=bodyClass)
+
+    div#wrap
+      header
+        nav(class=nav)
+          ul
+            li#home
+              a(href="/", accesskey="h") Home
+            li#maps
+              a(href="/maps", accesskey="m") Maps
+
+      section#content
+        block content
+
+      footer
+        p Yo,
+          = " " + (new Date).getFullYear() + "!"
