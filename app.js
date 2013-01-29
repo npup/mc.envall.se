@@ -34,7 +34,7 @@ app.get("/", function (req, res) {
 
 
 app.get("/maps", function (req, res) {
-  res.redirect("/maps/h1");
+  renderMap("h1", req, res);
 });
 
 app.get("/maps/h1", function (req, res) {
