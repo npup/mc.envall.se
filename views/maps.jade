@@ -6,11 +6,40 @@ block content
   h2 Maps
 
   dl.flaps
-    dt.flap-0
-      a(href="#h1") ???
-    dd.content-0
-      iframe.overview(src="/h2/index.html")
-    dt.flap-1
-      a(href="npup") npup
-    dd.content-1
-      iframe.overview(src="/npup/index.html")
+    dt.h1(class=(map=='h1'?'selected':''))
+      a(href="/maps/h1") h1
+    dd
+      iframe.overview(src="/maps/h1/index.html")
+    dt.npup(class=(map=='npup'?'selected':''))
+      a(href="/maps/npup") npup
+    dd
+      iframe.overview(src="/maps/npup/index.html")
+
+
+  script(type="text/javascript")
+    (function () {
+      var menu = document.getElementsByTagName("dl")[0]
+        , captions = [].slice.call(menu.getElementsByTagName("dt"), 0);
+
+      menu.addEventListener("click", function (e) {
+        var link = e.target;
+        if (link.nodeName!="A") {return;}
+        var href = link.getAttribute("href")
+          , map = link.href.replace(/(?:.+\/maps\/)(.+)$/, "$1");
+        e.preventDefault();
+        showFlap(map);
+      }, false);
+
+      function showFlap(flap) {
+        var selectedClass = "selected", item;
+        for (var idx=0, len=captions.length; idx<len; ++idx) {
+          item = captions[idx];
+          if (item.classList.contains(flap)) {
+            item.classList.add(selectedClass);
+          }
+          else {
+            item.classList.remove(selectedClass);
+          }
+        }
+      }
+    })();

@@ -34,12 +34,29 @@ app.get("/", function (req, res) {
 
 
 app.get("/maps", function (req, res) {
+  res.redirect("/maps/h1");
   res.render("maps", {
     "pt": "Maps"
     , "nav": "maps"
     , "cssCustom": []
   });
 });
+
+app.get("/maps/h1", function (req, res) {
+  renderMap("h1", req, res);
+});
+app.get("/maps/npup", function (req, res) {
+  renderMap("npup", req, res);
+});
+
+function renderMap(map, req, res) {
+  res.render("maps", {
+    "pt": "Maps - " + map
+    , "map": map
+    , "nav": "maps"
+    , "cssCustom": []
+  });
+}
 
 
 
