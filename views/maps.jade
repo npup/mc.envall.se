@@ -5,12 +5,12 @@ block content
 
   h2 Maps
 
-  dl.flaps
-    dt.h1(class=(map=='h1'?'selected':''))
+  ul.flaps
+    li.h1(class=(map=='h1'?'selected':''))
       a(href="/maps/h1") h1
-    dd
-      iframe.overview(src="/servers/h1/")
-    dt.npup(class=(map=='npup'?'selected':''))
+    li.npup(class=(map=='npup'?'selected':''))
       a(href="/maps/npup") npup
-    dd
-      iframe.overview(src="/servers/npup/")
+    
+
+  div.content
+    iframe.overview(src="/servers/"+map+"/")
