@@ -59,6 +59,9 @@ h1 {
 p {
   width: 60em;
 }
+footer p {
+  width: auto;
+}
 /* components */
 nav.home #home a,
 nav.maps #maps a {
