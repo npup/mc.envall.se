@@ -11,13 +11,16 @@ app.configure(function () {
   app.use(require("stylus").middleware({ src: __dirname + "/public" }));
   app.use(express["static"](__dirname + "/public"));
 });
+var APP_PORT = 3000;
 
-
+var DEVMODE = true;
+var mapsPath = DEVMODE ? "//mc.envall.se:"+APP_PORT+"/servers" : "/servers";
 
 // View helpers
 app.locals({
   "bodyClass": "unknown"
   , "nav": "unknown"
+  , "mapsPath": mapsPath
   , "util":  {
     "foo": 42
   }
@@ -59,4 +62,4 @@ function renderMap(map, req, res) {
 
 
 // Run application
-app.listen(3000);
+app.listen(APP_PORT);

@@ -4,7 +4,7 @@ extends layout
 block content
 
   h4 Automatiskt genererade kartor
-  p Kartornas strukturer ritas om varje hel- och halvtimme. Spelarpositioner uppdateras var femte minut (klicka på "Markeringar" och bocka i "Spelare" på kartan för att visa dem).
+  p Kartornas strukturer ritas om varje hel- och halvtimme. Spelarpositioner uppdateras var femte minut (klicka på "Spelare" i menyn "Markeringar" på kartan för att visa dem).
   p Klicka på fliken för den karta du vill se!
 
   ul.flaps(class="selected-"+map)
@@ -15,4 +15,4 @@ block content
     
 
   div.content
-    iframe.overview(src="/servers/"+map+"/")
+    iframe.overview(src=mapsPath+"/"+map+"/")
