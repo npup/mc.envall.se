@@ -3,18 +3,22 @@ html *
   -moz-box-sizing border-box
   box-sizing border-box
 
+html
+  overflow-y scroll
+
 body
   font-family Verdana
   background-image url(../images/stripes.png)
 
 #wrap
-  min-width 960px
+  min-width 600px
   max-width 1200px
   margin 0 auto
   margin-top 2em
   padding 1em
   background-color #ececec
   border-radius 16px
+  box-shadow -14px 14px 20px #333333
 
 nav ul
   list-style-type none
@@ -60,7 +64,7 @@ h4
   margin-top 2em
 
 p
-  width 60em
+  max-width 60em
 
 footer p
   width auto
@@ -78,6 +82,8 @@ nav.maps #maps a
   float left
   clear left
   width 5em
+  font-weight bold
+  text-align right
 
 .server-list dd
   float left
