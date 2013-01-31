@@ -36,7 +36,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/maps", function (req, res) {
-  renderMap("h1", req, res);
+  renderMap("npup", req, res);
 });
 
 app.get("/maps/h1", function (req, res) {
