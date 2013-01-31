@@ -3,12 +3,13 @@ extends layout
 
 block content
 
-  h2 Maps
+  h4 Automatiskt genererade kartor
+  p Kartornas strukturer ritas om varje hel- och halvtimme. Spelarpositioner uppdateras var femte minut. Klicka på fliken för den karta du vill se!
 
-  ul.flaps
-    li.h1(class=(map=='h1'?'selected':''))
+  ul.flaps(class="selected-"+map)
+    li.h1
       a(href="/maps/h1") h1
-    li.npup(class=(map=='npup'?'selected':''))
+    li.npup
       a(href="/maps/npup") npup
     
 

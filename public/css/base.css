@@ -5,6 +5,7 @@ html * {
 }
 body {
   font-family: Verdana;
+  background-image: url("../images/stripes.png");
 }
 #wrap {
   min-width: 960px;
@@ -12,8 +13,8 @@ body {
   margin: 0 auto;
   margin-top: 2em;
   padding: 1em;
-  background-color: #f2f2f2;
-  border-radius: 3px;
+  background-color: #ececec;
+  border-radius: 16px;
 }
 nav ul {
   list-style-type: none;
@@ -50,32 +51,50 @@ footer {
 }
 #content {
   clear: left;
-  padding: 1em;
+  padding: 1.5em;
 }
 h1 {
   margin-top: 0;
+}
+p {
+  clear: left;
 }
 /* components */
 nav.home #home a,
 nav.maps #maps a {
   color: #248;
 }
-.selected {
-  background-color: #fcfcfc;
+.server-list {
+  margin: 0 0 5em 2em;
+  clear: left;
 }
-ul.flaps {
-  margin: 0;
+.server-list dt {
+  float: left;
+  clear: left;
+  width: 5em;
+}
+.server-list dd {
+  float: left;
+  margin-left: 1em;
+}
+.flaps {
+  margin: 1.5em 0 0 0;
   padding: 0;
 }
-ul.flaps li {
-  display: inline;
-  margin-right: 0.2em;
+.flaps li {
+  display: inline-block;
   border: 2px solid #888;
   border-bottom: none;
   border-radius: 8px 8px 0 0;
   font-size: 1.2em;
+  vertical-align: bottom;
 }
-ul.flaps a {
+.flaps.selected-h1 .h1,
+.flaps.selected-npup .npup {
+  height: 2em;
+  background-color: #f8f8f8;
+}
+.flaps a {
   display: inline-block;
   padding: 0.2em 0.5em 0 0.5em;
 }

@@ -15,13 +15,13 @@ html
         nav(class=nav)
           ul
             li#home
-              a(href="/", accesskey="h") Home
+              a(href="/", accesskey="h") Hem
             li#maps
-              a(href="/maps", accesskey="m") Maps
+              a(href="/maps", accesskey="m") Kartor
 
       section#content
         block content
 
       footer
-        p Yo,
-          = " " + (new Date).getFullYear() + "!"
+        p &copy;
+          = " " + (new Date).getFullYear()
