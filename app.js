@@ -7,6 +7,7 @@ app.configure(function () {
   app.use(express.bodyParser());
   app.set("views", __dirname + "/views");
   app.set("view engine", "jade");
+  app.locals.pretty = true;
   app.use(require("stylus").middleware({ src: __dirname + "/public" }));
   app.use(express["static"](__dirname + "/public"));
 });
