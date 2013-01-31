@@ -11,6 +11,8 @@ app.configure(function () {
   app.use(express["static"](__dirname + "/public"));
 });
 
+
+
 // View helpers
 app.locals({
   "bodyClass": "unknown"
@@ -26,7 +28,7 @@ app.locals({
 // Routes
 app.get("/", function (req, res) {
   res.render("index", {
-    "pt": "Home"
+    "pageTitle": "mc.envall.se | Hem"
     , "nav": "home"
     , "cssCustom": []
   });
@@ -46,7 +48,7 @@ app.get("/maps/npup", function (req, res) {
 
 function renderMap(map, req, res) {
   res.render("maps", {
-    "pt": "Maps - " + map
+    "pageTitle": "mc.envall.se | Kartor - " + map
     , "map": map
     , "nav": "maps"
     , "cssCustom": []
