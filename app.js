@@ -1,3 +1,4 @@
+// node script.js > stdout.log 2> stderr.log &
 // Instantiation
 var express = require("express")
   , app = express();
