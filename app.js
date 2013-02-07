@@ -14,7 +14,7 @@ app.configure(function () {
 });
 
 
-var DEVMODE = true;
+var DEVMODE = false;
 
 var mapsPath = DEVMODE ? "//mc.envall.se:"+APP_PORT+"/servers" : "/servers";
 var APP_PORT = DEVMODE ? 3000 : 80;
