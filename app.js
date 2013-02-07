@@ -1,4 +1,3 @@
-// node script.js > stdout.log 2> stderr.log &
 // Instantiation
 var express = require("express")
   , app = express();
@@ -14,10 +13,22 @@ app.configure(function () {
 });
 
 
-var DEVMODE = false;
+// Read conf from file
+var conf = (function () {
+  var confFile = "./conf", conf = {};
+  if (require("fs").existsSync(confFile+".js")) {
+    conf = require(confFile);
+  }
+  else {
+    console.warn("\nNo configuration file '%s' found!\nUsing defaults: %s", confFile, JSON.stringify(conf, null, 2));
+  }
+  return conf;
+})();
 
-var mapsPath = DEVMODE ? "//mc.envall.se:"+APP_PORT+"/servers" : "/servers";
-var APP_PORT = DEVMODE ? 3000 : 80;
+
+var APP_PORT = conf.DEVMODE ? 3000 : 80
+  , mapsPath = conf.DEVMODE ? "//mc.envall.se:"+APP_PORT+"/servers" : "/servers";
+
 
 // View helpers
 app.locals({
@@ -53,10 +64,12 @@ app.get("/maps/npup", function (req, res) {
   renderMap("npup", req, res);
 });
 
+
 // Redirect to cater for legacy url from old php site
 app.get("/maps/mc_npup/", function (req, res) {
-  res.redirect(301, "/")
+  res.redirect(301, "/");
 });
+
 
 function renderMap(map, req, res) {
   res.render("maps", {
@@ -66,7 +79,6 @@ function renderMap(map, req, res) {
     , "cssCustom": []
   });
 }
-
 
 
 // Run application
