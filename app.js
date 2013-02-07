@@ -12,10 +12,12 @@ app.configure(function () {
   app.use(require("stylus").middleware({ src: __dirname + "/public" }));
   app.use(express["static"](__dirname + "/public"));
 });
-var APP_PORT = 80; // was 3000
+
 
 var DEVMODE = true;
+
 var mapsPath = DEVMODE ? "//mc.envall.se:"+APP_PORT+"/servers" : "/servers";
+var APP_PORT = DEVMODE ? 3000 : 80;
 
 // View helpers
 app.locals({
