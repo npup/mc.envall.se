@@ -1,4 +1,8 @@
 node_modules
 node_modules/*
+conf.js
+*.log
+*.cmd
+*.ctl
 public/servers/*
 public/css/base.css
