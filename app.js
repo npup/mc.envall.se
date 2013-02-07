@@ -51,6 +51,11 @@ app.get("/maps/npup", function (req, res) {
   renderMap("npup", req, res);
 });
 
+// Redirect to cater for legacy url from old php site
+app.get("/maps/mc_npup/", function (req, res) {
+  res.redirect(301, "/")
+});
+
 function renderMap(map, req, res) {
   res.render("maps", {
     "pageTitle": "mc.envall.se | Kartor - " + map
