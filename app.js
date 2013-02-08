@@ -65,10 +65,14 @@ app.get("/maps/npup", function (req, res) {
 });
 
 
-// Redirect to cater for legacy url from old php site
-app.get("/maps/mc_npup/", function (req, res) {
+// Redirects to cater for legacy urls from old php site
+app.get("/maps/mc_npup", doLegacyUrls);
+app.get("/maps/mc_npup*", doLegacyUrls);
+
+
+function doLegacyUrls(req, res) {
   res.redirect(301, "/");
-});
+}
 
 
 function renderMap(map, req, res) {
