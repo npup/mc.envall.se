@@ -4,9 +4,9 @@ html
   head
     title= pageTitle
     - each file in cssAll
-      link(rel="stylesheet", type="text/css", href="/css/"+file)
+      link(rel="stylesheet", type="text/css", href="/css/"+file+".css")
     - each file in cssCustom
-      link(rel="stylesheet", type="text/css", href="/css/"+file)
+      link(rel="stylesheet", type="text/css", href="/css/"+file+".css")
 
   body(class=bodyClass)
 
@@ -24,4 +24,5 @@ html
 
       footer
         p &copy;
-          = " " + (new Date).getFullYear()
+          a(href="game-of-life")
+            = " " + (new Date).getFullYear()

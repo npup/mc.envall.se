@@ -1,0 +1,54 @@
+h2
+  text-align center
+
+#wrap
+  padding 1em 0
+
+#content
+  padding 1.5em 0
+
+aside
+  padding 0 2.5em
+
+section.rules
+  padding 0 2.5em
+
+
+.grid
+.grid *
+  -webkit-box-sizing border-box
+  -moz-box-sizing border-box
+  -ms-box-sizing border-box
+  -o-box-sizing border-box
+  box-sizing border-box
+
+.grid
+  border-collapse collapse
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  -o-user-select none
+  user-select none
+  margin 1em auto
+
+  td
+    width 1em
+    height 1em
+    background-color #7799aa
+    border 2px solid #99ccee
+    transition background-color .4s ease
+
+    &.on
+    &:hover
+      transition background-color 0s ease
+
+    &:hover
+      background-color #ccffe8
+    &.on
+      background-color #aaffdd
+
+  .controls td
+    background-color transparent
+    border none
+    padding .2em
+    text-align center

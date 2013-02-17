@@ -38,7 +38,7 @@ app.locals({
   , "util":  {
     "foo": 42
   }
-  , "cssAll": ["base.css"]
+  , "cssAll": ["base"]
   , "cssCustom": []
 });
 
@@ -64,6 +64,13 @@ app.get("/maps/npup", function (req, res) {
   renderMap("npup", req, res);
 });
 
+app.get("/game-of-life", function (req, res) {
+  res.render("game-of-life", {
+    "pageTitle": "mc.envall.se | Game Of Life"
+    , "nav": "game-of-life"
+    , "cssCustom": ["game-of-life"]
+  });
+});
 
 // Redirects to cater for legacy urls from old php site
 app.get("/maps/mc_npup", doLegacyUrls);
