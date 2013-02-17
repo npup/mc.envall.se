@@ -92,7 +92,7 @@ var gameOfLife = (function () {
 			return;
 		}
 		if (eventType=="mouseover") {
-			if (e.metaKey) {
+			if (e.altKey) {
 				cell.className = "on";
 			}
 			else if (e.shiftKey) {
