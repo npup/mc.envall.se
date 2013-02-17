@@ -8,15 +8,15 @@ block content
 
   aside
     p Fyll celler genom att klicka på dem, eller genom att hålla ned <strong>alt</strong> och måla med muspekaren.
-    p Rensa celler genom att klicka dem igen, eller genom att hålla ned <strong>shift</strong> och sudda med muspekaren.
-    p Starta och stanna simuleringen genom att aktivera <strong>RUN/STOP</strong>-knappen. För att gå framåt en generation i taget, aktivera <strong>Step</strong>-knappen.
+    p Rensa celler genom att klicka på dem igen, eller genom att hålla ned <strong>shift</strong> och sudda med muspekaren.
+    p Starta och stoppa simuleringen genom att aktivera <strong>RUN/STOP</strong>-knappen. För att gå framåt en generation i taget, aktivera <strong>Step</strong>-knappen.
 
   section.rules Regler:
     ol
-      li En levande cell med mindre än två grannar dör av isolering.
-      li En levande cell med två eller tre grannar lever vidare till nästa generation.
-      li En levande cell med mer än tre grannar dör av trängsel.
-      li I en cell utan liv, men med exakt tre levande grannar, uppstår nytt liv.
+      li En levande cell med mindre än två grannar <em>dör av isolering</em>.
+      li En levande cell med två eller tre grannar <em>lever vidare till nästa generation</em>.
+      li En levande cell med mer än tre grannar <em>dör av trängsel</em>.
+      li I en cell utan liv, men med exakt tre levande grannar, uppstår <em>nytt liv</em>.
 
   script(type="text/javascript", src="js/game-of-life.js")
 
