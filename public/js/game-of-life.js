@@ -37,12 +37,15 @@ var gameOfLife = (function () {
 			var instance = this;
 			instance.timer = setInterval(instance.tick.bind(instance), 200);
 			instance.running = true;
+			instance.table.className = "grid running";
+			console.log("rrrrrr");
 
 		}
 		, "stop": function () {
 			var instance = this;
 			instance.timer = clearInterval(instance.timer);
 			instance.running = false;
+			instance.table.className = "grid";
 		}
 		, "tick": function () {
 			var instance = this;
