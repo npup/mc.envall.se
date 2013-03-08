@@ -5,6 +5,10 @@
 }
 #math-game .fade {
   opacity: 0;
+  -webkit-transition: opacity 3s ease-out;
+  -moz-transition: opacity 3s ease-out;
+  -ms-transition: opacity 3s ease-out;
+  -o-transition: opacity 3s ease-out;
   transition: opacity 3s ease-out;
 }
 #math-game .msg-container {
@@ -40,6 +44,9 @@
   border-radius: 5px;
   padding: 0.5em;
   text-align: center;
+}
+#math-game input.answer {
+  width: 4em;
 }
 #math-game input:focus {
   background-color: #ffc;
