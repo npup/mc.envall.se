@@ -1,0 +1,192 @@
+#math-game {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+}
+#math-game .fade {
+  opacity: 0;
+  transition: opacity 3s ease-out;
+}
+#math-game .msg-container {
+  width: 50%;
+  position: absolute;
+  top: -3em;
+  right: 25%;
+  padding: 1em;
+  text-align: center;
+  background: #f8f8f8;
+  border: 3px solid #666;
+  border-radius: 5px;
+  display: none;
+}
+#math-game .msg-container.normal {
+  border-color: inherit;
+}
+#math-game .msg-container.win {
+  border-color: #4a4;
+}
+#math-game .msg-container.fail {
+  border-color: #a44;
+}
+#math-game .msg-container ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0.2em;
+  font-style: italic;
+}
+#math-game input {
+  background-color: #fefefe;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5em;
+  text-align: center;
+}
+#math-game input:focus {
+  background-color: #ffc;
+}
+#math-game input.disabled {
+  font-style: italic;
+  color: #333;
+}
+#math-game .questions {
+  list-style-type: none;
+  padding: 0.5em 3em 0 0;
+  text-align: right;
+  margin-top: 0;
+  width: 35%;
+  display: inline-block;
+  vertical-align: top;
+}
+#math-game .questions > li {
+  margin: 0.2em 0;
+  position: relative;
+}
+#math-game .questions label {
+  text-align: right;
+  display: inline-block;
+  padding-right: 0.5em;
+}
+#math-game .questions .correct input {
+  background-color: #bdffc8;
+}
+#math-game .questions .error input {
+  background-color: #ffbdc8;
+}
+#math-game .questions .error:after {
+  content: attr(data-answer);
+  font-size: 0.8em;
+  margin-left: 0.5em;
+  position: absolute;
+  bottom: 0.5em;
+}
+#math-game .status {
+  display: inline-block;
+  width: 65%;
+  background-color: #f2f2f2;
+  border: 3px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 1em;
+}
+#math-game .status .stats {
+  margin: 0 0 1em 0;
+}
+#math-game .status .stats dt {
+  margin-right: 0.5em;
+  text-align: right;
+  width: 50%;
+  display: inline-block;
+}
+#math-game .status .stats dd {
+  display: inline-block;
+  margin-left: 0.5em;
+}
+#math-game .status .achievments .gratz {
+  display: none;
+}
+#math-game .status .achievments.done .gratz {
+  display: block;
+  text-align: center;
+}
+#math-game .status .achievments.done dl {
+  display: none;
+}
+#math-game .status .achievments dl {
+  margin-top: 0.5em;
+}
+#math-game .status .achievments dl dt {
+  float: left;
+  clear: left;
+  width: 11em;
+  text-align: right;
+}
+#math-game .status .achievments dl dt.done {
+  display: none;
+}
+#math-game .status .achievments dl dt.done + dd {
+  display: none;
+}
+#math-game .status .achievments dl dd {
+  margin-left: 11.5em;
+  font-style: italic;
+}
+#math-game .math-game-round .submit {
+  margin-top: 1em;
+}
+#math-game .timer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6em;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0.3em;
+}
+#math-game ul.achievments-list {
+  list-style-type: none;
+  text-align: left;
+  padding-left: 0;
+  margin: 1em auto;
+  width: 90%;
+}
+#math-game ul.achievments-list li {
+  display: inline-block;
+  width: 45%;
+  padding-left: 18px;
+  position: relative;
+  left: 0;
+  -webkit-transition: 0.2s left ease;
+  -moz-transition: 0.2s left ease;
+  -ms-transition: 0.2s left ease;
+  -o-transition: 0.2s left ease;
+  transition: 0.2s left ease;
+}
+#math-game ul.achievments-list li:hover {
+  left: 10px;
+  -webkit-transition: 0.2s left ease;
+  -moz-transition: 0.2s left ease;
+  -ms-transition: 0.2s left ease;
+  -o-transition: 0.2s left ease;
+  transition: 0.2s left ease;
+}
+#math-game ul.achievments-list li.done {
+  background: transparent url("/images/star.png") left center no-repeat;
+}
+#math-game .achievments-done {
+  margin-bottom: 0;
+  background-color: #ff7;
+  padding: 0.2em;
+  border-radius: 4px 4px 0 0;
+}
+#math-game .achievments-done + ul {
+  margin-top: 0;
+  background-color: #ff7;
+  padding: 0.2em;
+  border-radius: 0 0 4px 4px;
+}
+#math-game .mul-options {
+  display: none;
+}
+#math-game input[type=radio][name=game-type][value=multiplikation]:checked ~ .mul-options {
+  display: block;
+}

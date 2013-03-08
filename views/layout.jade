@@ -2,6 +2,13 @@
 html
 
   head
+    script(type="text/javascript")
+      (function () {
+        var tags = ["nav", "header", "footer", "section"];
+        for (var idx=0, len=tags.length; idx<len; ++idx) {
+          document.createElement(tags[idx]);
+        }
+      })();
     title= pageTitle
     - each file in cssAll
       link(rel="stylesheet", type="text/css", href="/css/"+file+".css")
@@ -23,6 +30,8 @@ html
         block content
 
       footer
-        p &copy;
+        p
+          <!-- button(onclick='game.solve();document.forms[0].querySelector("input[type=submit]").focus();') &copy; -->
+          &copy;
           a(href="game-of-life")
             = " " + (new Date).getFullYear()

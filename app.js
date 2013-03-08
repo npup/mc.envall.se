@@ -68,9 +68,93 @@ app.get("/game-of-life", function (req, res) {
   res.render("game-of-life", {
     "pageTitle": "mc.envall.se | Game Of Life"
     , "nav": "game-of-life"
-    , "cssCustom": ["game-of-life"]
+    , "cssCustom": ["eggs", "game-of-life"]
   });
 });
+
+app.get("/math-game", function (req, res) {
+  res.render("math-game", {
+    "pageTitle": "mc.envall.se | Matematik"
+    , "nav": "math-game"
+    , "cssCustom": ["eggs", "math-game"]
+  });
+});
+
+
+// var dao = require("./code/redis-dao");
+//var conn = require("redis").createClient();
+// var modelKey = "math-game-player";
+// var uid = require("./code/uid").uid(modelKey);
+
+// function getNextScore(cb) {
+//   var next = uid.next();
+//   cb(next);
+// }
+
+// function savePlayer(item, cb) {
+// //  getNextScore(function (score) {
+//     item.id = item.name.toLowerCase();
+//     conn.zadd([modelKey, item.id, JSON.stringify(item)], function (err, result) {
+//       cb(err);
+//     });
+// //  });
+// }
+
+// function updatePlayer(item, cb) {
+//   removePlayer(item, function (err, result) {
+//     if (err) {return cb(err);}
+//     conn.zadd([modelKey, item.id, JSON.stringify(item)], function (err, result) {
+//       cb(err);
+//     });
+//   });
+// }
+
+
+// function removePlayer(item, cb) {
+//   var id = item.id;
+//   conn.zremrangebyscore([modelKey, id, id], function (err, result) {
+//     cb(err);
+//   });
+// }
+
+// function getAllPlayers(cb) {
+//   conn.zrange([modelKey, 0, -1], function (err, result) {
+//     var items = result ? result.map(function (json) {
+//       return JSON.parse(json);
+//     }) : [];
+//     cb(items, err);
+//   });
+// }
+
+// function getPlayer(name, cb) {
+//   var id = name.toLowerCase();
+//   conn.zrangebyscore([modelKey, id, id], function (err, result) {
+//     var item = err ? void 0 : JSON.parse(result[0]);
+//     cb(item, err);
+//   });
+// }
+
+// app.get("/math-game/player/:name", function (req, res) {
+//   console.log("NU SÅ!, %s", req.param("name"));
+//   getPlayer(req.param("name"), function (item, err) {
+//     res.json(200, item);
+//   });
+// });
+
+// app.post("/math-game/player", function (req, res) {
+//   console.log("NU SÅ!, %s", req.param("id"));
+//   removePlayer({"id": req.param("id")}, function (item, err) {
+//     res.json(200, item);
+//   });
+// });
+
+// app.get("/math-game/players/", function (req, res) {
+//   getAllPlayers(function (items, err) {
+//     console.log(items);
+//     res.json(200, items);
+//   });  
+  
+// });
 
 // Redirects to cater for legacy urls from old php site
 app.get("/maps/mc_npup", doLegacyUrls);

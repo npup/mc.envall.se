@@ -1,0 +1,202 @@
+#math-game
+  position relative
+  width 60%
+  margin 0 auto
+
+  .fade
+    opacity 0
+    transition opacity 3s ease-out
+
+  .msg-container
+    width 50%
+    position absolute
+    top -3em
+    right 25%
+    padding 1em
+    text-align center
+    background #f8f8f8
+    border 3px solid #666
+    border-radius 5px
+    display none
+
+    &.normal
+      border-color inherit
+
+    &.win
+      border-color #4a4
+
+    &.fail
+      border-color #a44
+
+    ul
+      list-style-type none
+      padding-left 0
+      margin-top .2em
+      font-style italic
+
+  input
+    background-color #fefefe
+    border 2px solid #ccc
+    border-radius 5px
+    padding 0.5em
+    text-align center
+
+    &:focus
+      background-color #ffc
+
+    &.disabled
+      font-style italic
+      color #333
+
+  .questions
+    list-style-type none
+    padding 0.5em 3em 0 0
+    text-align right
+    margin-top 0
+    width 35%
+    display inline-block
+    vertical-align top
+
+    > li
+      margin .2em 0
+      position relative
+
+    label
+      text-align right
+      display inline-block
+      padding-right .5em
+
+    .correct input
+      background-color #bdffc8
+
+    .error
+      input
+        background-color #ffbdc8
+
+    .error:after
+      content attr(data-answer)
+      font-size .8em
+      margin-left .5em
+      position absolute
+      bottom .5em
+
+  .status
+    display inline-block
+    width 65%
+    background-color #f2f2f2
+    border 3px solid #e2e2e2
+    border-radius 10px
+    padding 1em
+
+    .stats
+      margin 0 0 1em 0
+
+      dt
+        margin-right 0.5em
+        text-align right
+        width 50%
+        display inline-block
+
+      dd
+        display inline-block
+        margin-left 0.5em
+
+    .achievments
+      .gratz
+        display none
+      &.done
+        .gratz
+          display block
+          text-align center
+        dl
+          display none
+
+
+    .achievments dl
+      margin-top .5em
+
+      dt
+        float left
+        clear left
+        width 11em
+        text-align right
+
+        &.done
+          display none
+
+          + dd
+            display none
+
+      dd
+        margin-left 11.5em
+        font-style italic
+
+      
+  .math-game-round
+    .submit
+      margin-top 1em
+
+  .timer
+    position absolute
+    top 0
+    right 0
+    width 6em
+    background-color #fff
+    text-align center
+    border-radius 5px
+    padding .3em
+
+  ul.achievments-list
+    list-style-type none
+    text-align left
+    padding-left 0
+    margin 1em auto
+    width 90%
+
+    li
+      display inline-block
+      width 45%
+      padding-left 18px
+      position relative
+      left 0
+      -webkit-transition .2s left ease
+      -moz-transition .2s left ease
+      -ms-transition .2s left ease
+      -o-transition .2s left ease
+      transition .2s left ease
+    
+
+      &:hover
+        left 10px
+        -webkit-transition .2s left ease
+        -moz-transition .2s left ease
+        -ms-transition .2s left ease
+        -o-transition .2s left ease
+        transition .2s left ease
+
+      &.done
+        background transparent url(/images/star.png) left center no-repeat
+
+
+  .achievments-done
+    margin-bottom 0
+    background-color #ff7
+    padding .2em
+    border-radius 4px 4px 0 0
+
+    + ul
+      margin-top 0
+      background-color #ff7
+      padding .2em
+      border-radius 0 0 4px 4px
+
+  .mul-options
+    display none
+
+  input[type=radio][name=game-type][value=multiplikation]:checked
+
+    & ~ .mul-options
+      display block
+      
+
+

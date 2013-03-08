@@ -1,0 +1,20 @@
+extends eggs
+
+block egg
+
+  h2 Matematik
+
+  div#math-game
+  
+  script(src="/js/math-game/math-game.js")
+  script(src="/js/math-game/player.js")
+  script(src="/js/math-game/serialization.js")
+  script(src="/js/npup/core.js")
+  script(src="/js/npup/dom.js")
+  script(src="/js/npup/util.js")
+  script(src="/js/npup/ajax.js")
+
+  
+  script
+    var game = mathGame.create(document.getElementById("math-game"));
+    game.start();

@@ -23,6 +23,13 @@ var gameOfLife = (function () {
 		instance.buttonRunStop.onclick = handleRunStop.bind(instance);
 		instance.buttonTick = buttons[1];
 		instance.buttonTick.onclick = handleTick.bind(instance);
+
+		instance.buttonFill = buttons[2];
+		instance.buttonFill.onclick = handleFill.bind(instance);
+
+		instance.buttonClear = buttons[3];
+		instance.buttonClear.onclick = handleClear.bind(instance);
+
 		instance.running = false;
 		instance.timer = void 0;
 	}
@@ -38,8 +45,6 @@ var gameOfLife = (function () {
 			instance.timer = setInterval(instance.tick.bind(instance), 200);
 			instance.running = true;
 			instance.table.className = "grid running";
-			console.log("rrrrrr");
-
 		}
 		, "stop": function () {
 			var instance = this;
@@ -112,6 +117,23 @@ var gameOfLife = (function () {
 		instance[instance.running?"stop":"tick"]();
 	}
 
+	function handleFill() {
+		var instance = this;
+		loopCells(instance, instance.options, function (map, pos) {
+			var posStr = pos.str
+				, cell = map.map[posStr].cell;
+			cell.className = "on";
+		});
+	}
+	function handleClear() {
+		var instance = this;
+		loopCells(instance, instance.options, function (map, pos) {
+			var posStr = pos.str
+				, cell = map.map[posStr].cell;
+			cell.className = "";
+		});
+	}
+
 	/*
 		Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 		Any live cell with two or three live neighbours lives on to the next generation.
@@ -160,14 +182,31 @@ var gameOfLife = (function () {
 		row.className = "controls";
 		cell = row.insertCell(-1);
 		cell.colSpan = options.width;
+
 		var button = doc.createElement("button");
 		button.className = "run-stop";
+		button.accessKey = "r";
 		button.innerHTML = "RUN/STOP";
 		cell.appendChild(button);
+
 		button = doc.createElement("button");
 		button.className = "tick";
+		button.accessKey = "s";
 		button.innerHTML = "Step";
 		cell.appendChild(button);
+
+		button = doc.createElement("button");
+		button.className = "fill";
+		button.accessKey = "f";
+		button.innerHTML = "Fill";
+		cell.appendChild(button);
+
+		button = doc.createElement("button");
+		button.className = "clear";
+		button.accessKey = "c";
+		button.innerHTML = "Clear";
+		cell.appendChild(button);
+
 		frag.appendChild(table);
 		instance.frag = frag;
 	}
