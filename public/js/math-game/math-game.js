@@ -436,7 +436,7 @@ var mathGame = (function () {
         (function () {
           var items = [];
           for (var i=0; i<MathGame.nrOfQuestionsPerRound; ++i) {
-            var html = "<li id=i"+i+" data-answer=%a"+i+"%> <label for=p"+i+">%p"+i+"f0% %typeChar% %p"+i+"f1% "+Char.EQUALS+" </label><input type=text class=answer name=p"+i+" size=2 maxlength=3 id=p"+i+" autocomplete=off placeholder=?>"  
+            var html = "<li id=i"+i+" data-answer=%a"+i+"%> <label for=p"+i+">%p"+i+"f0% %typeChar% %p"+i+"f1% "+Char.EQUALS+" </label><input type=number class=answer name=p"+i+" size=2 maxlength=3 id=p"+i+" autocomplete=off placeholder=?>"  
             items.push(html);
           }
           items.push("<li><input type=submit class=submit value=Nästa></li>");
