@@ -1,6 +1,31 @@
 var mathGame = (function () {
   var win = this, doc = win.document;
 
+  var SUPPORT = (function () {
+    var doc = window.document;
+    return "function" == typeof doc.addEventListener &&
+      "function" == typeof [].map &&
+      "function" == typeof [].forEach &&
+      "function" == typeof doc.querySelector &&
+      "function" == typeof doc.querySelectorAll;
+  })();
+  if (!SUPPORT) {
+    return {
+      "create": function (elem) {
+        elem.innerHTML = [
+          "<h4>Matematikspelet fungerar ännu inte med denna klient</h4>"
+          , "Pröva med att använda en någorlunda modern webbläsare, som t.ex."
+          , "<ul>"
+          , "  <li>Firefox</li>"
+          , "  <li>Google Chrome</li>"
+          , "  <li>Opera</li>"
+          , "  <li>Internet Explorer (version 9 eller högre)</li>"
+          , "</ul>"
+        ].join("");
+      }
+    };
+  }
+
   var globalActions = {
     "show-achievments": function (elem) {
       this.showAchievments();
@@ -270,8 +295,8 @@ var mathGame = (function () {
       var minutesAndSeconds = _timer.getMinutesAndSeconds()
         ,str = _timer.getAsString();
       if (minutesAndSeconds.minutes>=59 && minutesAndSeconds.seconds>=59) {
-          _timer.stop();
-        }
+        _timer.stop();
+      }
 
       _timer.elem.value = _timer.getAsString();
       _timer.stopped || setTimeout(function () {tick(_timer);}, 1000);
@@ -631,6 +656,7 @@ var mathGame = (function () {
 
     return result;
   })();
+
 
   // mathGame API
   return {
