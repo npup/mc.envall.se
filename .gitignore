@@ -5,4 +5,4 @@ conf.js
 *.cmd
 *.ctl
 public/servers/*
-public/css/base.css
+public/css/*.css

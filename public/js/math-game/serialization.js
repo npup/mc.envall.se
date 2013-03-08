@@ -87,6 +87,7 @@ var serialize = (function () {
 				case "INPUT":
 					switch (type) {
 						case "TEXT":
+						case "NUMBER":
 						case "HIDDEN":
 						case "PASSWORD":
 						case "BUTTON":
