@@ -406,8 +406,8 @@ var mathGame = (function () {
       ]).join("");
 
     put("start", "Skriv ditt namn", [
-        "<label for=nick>Namn </label>"
-        , "<input type=text name=nick id=nick autocomplete=off placeholder='Ditt namn'><br>"
+        "<input type=text name=nick id=nick autocomplete=off placeholder=?><br>"
+        , "<p>Välj räknesätt:</p>"
         , ["multiplikation", "addition", "subtraction"].map(function (type) {
           var o = {
             "multiplikation": {"checked": true, "symbol": Char.CROSS}
@@ -435,8 +435,12 @@ var mathGame = (function () {
         }
         , "post": function (view) {
           var game = this
-            , playerName = game.post.nick
-            , player = mathGame.player.load(playerName);
+            , playerName = game.post.nick.toLowerCase().trim();
+          if (playerName == "") {
+            game.showMsg("Namn får ej vara blankt", {"fade": true, "type": "fail"});
+            return forward.NULL;
+          }
+          var player = mathGame.player.load(playerName);
             /*
           npup.ajax.get("/multiplikation/player/"+playerName).ok(function (r) {
             console.log(r);
