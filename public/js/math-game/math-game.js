@@ -33,6 +33,9 @@ var mathGame = (function () {
     , "hide-msg": function (elem) {
       this.hideMsg();
     }
+    , "quit": function () {
+      location.href = "/math-game";
+    }
   };
 
   var Char = {
@@ -60,9 +63,7 @@ var mathGame = (function () {
         tmp && tmp.length>1 && (action = tmp.substring(1));
       }
       else if (nodeName=="button") {
-        if (target.value = "hide-msg") {
-          action = target.value;
-        }
+        action = target.value;
       }
       "function" == typeof globalActions[action] && (globalActions[action].call(instance, target));
     }, false);
@@ -673,6 +674,7 @@ var mathGame = (function () {
       ]
       .concat(formContent)
       .concat(["</form>"
+        , "<button class=quit value=quit>Avsluta</button>"
         , "<div class=msg-container></div>"
         , "</div>"
       ]);
