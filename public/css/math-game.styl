@@ -42,8 +42,9 @@
     background-color #fefefe
     border 2px solid #ccc
     border-radius 5px
-    padding 0.5em
+    padding .5em
     text-align center
+    margin-bottom .6em
 
     &.answer
       width 4em
@@ -94,6 +95,11 @@
     border 3px solid #e2e2e2
     border-radius 10px
     padding 1em
+
+    .player-name
+      background #fff
+      border-radius 4px
+      padding 0 .5em .2em
 
     .stats
       margin 0 0 1em 0
@@ -199,13 +205,22 @@
 
   .mul-options
     display none
+    select
+      background-color #fefefe
+      border 2px solid #ccc
+      border-radius 5px
+      padding 0.2em
 
   input[type=radio][name=game-type][value=multiplikation]:checked
 
     & ~ .mul-options
-      display block
+      display inline
+      margin-left 1em
       
   .math-game-start
     input[type=submit]
-      display none
+      display inherit
+      margin-left 10em
+    input[name=pass]
+      width 4em
 

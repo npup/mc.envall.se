@@ -339,7 +339,7 @@ var mathGame = (function () {
   * Templates
   */
   var templates = (function () {
-    
+
     var result = {};
 
     function populateStatusTemplate(game, html) {
@@ -358,6 +358,7 @@ var mathGame = (function () {
         }
         percent += " %";
       }
+      html = html.replace(/%player_name%/, game.player.name);
       html = html.replace(/%score%/, score);
       html = html.replace(/%percent_correct%/, percent);
       html = html.replace(/%round_streak%/, game.player.getRoundStreak());
@@ -379,6 +380,7 @@ var mathGame = (function () {
 
     var statusTemplate = [
       "<div class=status>"
+      , "<span class=player-name>%player_name%</span>"
       , "<dl class=stats>"
       , "  <dt>Nivå</dt><dd><a href=#show-achievments>%level%</a></dd>"
       , "  <dt>Antal rundor</dt><dd>%nr_of_rounds%</dd>"
@@ -405,8 +407,8 @@ var mathGame = (function () {
         "</div>"
       ]).join("");
 
-    put("start", "Skriv ditt namn", [
-        "<input type=text name=nick id=nick autocomplete=off placeholder=?><br>"
+    put("start", "Skriv ditt namn<!-- och inloggingskod-->", [
+        "<input type=text name=nick id=nick autocomplete=off placeholder=?><!--<input type=text name=pass id=pass autocomplete=off placeholder=? maxlength=4>--><br>"
         , "<p>Välj räknesätt:</p>"
         , ["multiplikation", "addition", "subtraction"].map(function (type) {
           var o = {
@@ -418,12 +420,20 @@ var mathGame = (function () {
           if (type == "addition" || type == "subtraction") {
             return val;
           }
-        //   val += ["<select class=mul-options>"
-        // , "  <option value=1_3>1 - 3</option>"
-        // , "  <option value=4_6>4 - 6</option>"
-        // , "  <option value=7_9>7 - 10</option>"
-        // , "  <option value=all>Alla</option>"
-        // , "</select>"].join("");
+          val += ["<label class=mul-options>Tabell <select name=mul-tables>"
+            , "  <option value=all selected>Alla</option>"
+            , "  <option value=1>1</option>"
+            , "  <option value=2>2</option>"
+            , "  <option value=3>3</option>"
+            , "  <option value=4>4</option>"
+            , "  <option value=5>5</option>"
+            , "  <option value=6>6</option>"
+            , "  <option value=7>7</option>"
+            , "  <option value=8>8</option>"
+            , "  <option value=9>9</option>"
+            , "  <option value=10>10</option>"
+            , "</select></label>"
+          ].join("");
           return val;
         }).join("<br>")
         , "<br><input type=submit class=submit value=Starta >"
@@ -435,25 +445,32 @@ var mathGame = (function () {
         }
         , "post": function (view) {
           var game = this
-            , playerName = game.post.nick.toLowerCase().trim();
+            , playerName = game.post.nick.toLowerCase().trim()
+//            , playerPass = game.post.pass.trim();
           if (playerName == "") {
             game.showMsg("Namn får ej vara blankt", {"fade": true, "type": "fail"});
+            game.elem.querySelector("input[name=nick]").focus();
             return forward.NULL;
           }
+          // if (playerPass == "") {
+          //   game.showMsg("Kod får ej vara blank", {"fade": true, "type": "fail"});
+          //   game.elem.querySelector("input[name=pass]").focus();
+          //   return forward.NULL;
+          // }
+          // npup.ajax.get("/math-game/player").params({"name": playerName, "pass": playerPass}).ok(function (r) {
+          //   var p = JSON.parse(r.responseText);
+          //   console.log(p);
+          // }).send();
           var player = mathGame.player.load(playerName);
-            /*
-          npup.ajax.get("/multiplikation/player/"+playerName).ok(function (r) {
-            console.log(r);
-            var json = JSON.parse(r.responseText);
-            console.log(json);
-          }).send();
-          */
           if (!player) {
             // well, create it then
             player = mathGame.player.create(playerName);
           }
           game.player = player;
           game.type = game.post["game-type"];
+          game.mulOptions = {
+            "tables": game.post["mul-tables"] == "all" ? null : parseInt(game.post["mul-tables"])
+          };
           return forward.create("round");
         }
       }
@@ -483,9 +500,23 @@ var mathGame = (function () {
           , f0, f1, p
           , isAddition = instance.type == "addition"
           , isSubtraction = instance.type == "subtraction";
+        var secondValues = {}
+          , singleTable = instance.mulOptions.tables===null ? false : instance.mulOptions.tables;
         for (var i = 0; i<MathGame.nrOfQuestionsPerRound; ++i) {
-          f0 = Math.ceil(Math.random()*10);
+          f0 = singleTable===false ? Math.ceil(Math.random()*10) : singleTable;
           f1 = Math.ceil(Math.random()*10);
+          if (singleTable!==false) {
+            while (f1 in secondValues && secondValues[f1] > 0) {
+              f1 = Math.ceil(Math.random()*10);
+            }
+            if (f1 in secondValues) {
+              secondValues[f1] += 1;
+            }
+            else {
+              secondValues[f1] = 1;
+            }
+          }
+          
           if (isAddition || isSubtraction) {
             f0 = f0 * Math.ceil(Math.random()*10);
             f1 = f1 * Math.ceil(Math.random()*10);

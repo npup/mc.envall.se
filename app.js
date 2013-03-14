@@ -80,82 +80,128 @@ app.get("/math-game", function (req, res) {
   });
 });
 
+/*
+var dao = require("./code/redis-dao");
+var conn = require("redis").createClient();
+var modelKey = "math-game-player";
+var uid = require("./code/uid").uid(modelKey);
 
-// var dao = require("./code/redis-dao");
-//var conn = require("redis").createClient();
-// var modelKey = "math-game-player";
-// var uid = require("./code/uid").uid(modelKey);
+function getNextScore(cb) {
+  var next = uid.next();
+  cb(next);
+}
 
-// function getNextScore(cb) {
-//   var next = uid.next();
-//   cb(next);
-// }
+function savePlayer(item, cb, isUpdate) {
+  isUpdate || (item.created = Date.now());
+  conn.hset(modelKey, item.name.toLowerCase(), JSON.stringify(item), function (err, result) {
+    cb(err);
+  });
+}
 
-// function savePlayer(item, cb) {
-// //  getNextScore(function (score) {
-//     item.id = item.name.toLowerCase();
-//     conn.zadd([modelKey, item.id, JSON.stringify(item)], function (err, result) {
-//       cb(err);
-//     });
-// //  });
-// }
-
-// function updatePlayer(item, cb) {
-//   removePlayer(item, function (err, result) {
-//     if (err) {return cb(err);}
-//     conn.zadd([modelKey, item.id, JSON.stringify(item)], function (err, result) {
-//       cb(err);
-//     });
-//   });
-// }
+function updatePlayer(item, cb) {
+  removePlayer(item, function (err, result) {
+    if (err) {return cb(err);}
+    savePlayer(item, cb, true);
+  });
+}
 
 
-// function removePlayer(item, cb) {
-//   var id = item.id;
-//   conn.zremrangebyscore([modelKey, id, id], function (err, result) {
-//     cb(err);
-//   });
-// }
+function removePlayer(item, cb) {
+  var name = "string" == typeof item ? item : item.name;
+  conn.hdel(modelKey, name.toLowerCase(), function (err, result) {
+    cb(err);
+  });
+}
 
-// function getAllPlayers(cb) {
-//   conn.zrange([modelKey, 0, -1], function (err, result) {
-//     var items = result ? result.map(function (json) {
-//       return JSON.parse(json);
-//     }) : [];
-//     cb(items, err);
-//   });
-// }
+function getAllPlayers(cb) {
+  conn.hgetall(modelKey, function (err, result) {
+    var items = [];
+    console.log("err: %s, result: %s", err, JSON.stringify(result));
+    if (!err) {
+      for (var key in result) {
+        items.push(JSON.parse(result[key]));
+      }
+    }
+    cb(items.sort(function (v0, v1) {
+      return v0.name.toLowerCase() > v1.name.toLowerCase();
+    }), err);
+  });
+}
 
-// function getPlayer(name, cb) {
-//   var id = name.toLowerCase();
-//   conn.zrangebyscore([modelKey, id, id], function (err, result) {
-//     var item = err ? void 0 : JSON.parse(result[0]);
-//     cb(item, err);
-//   });
-// }
+function getPlayer(name, cb) {
+  conn.hget(modelKey, name.toLowerCase(), function (err, result) {
+    var item = err ? void 0 : JSON.parse(result);
+    cb(item, err);
+  });
+}
 
-// app.get("/math-game/player/:name", function (req, res) {
-//   console.log("NU SÅ!, %s", req.param("name"));
-//   getPlayer(req.param("name"), function (item, err) {
-//     res.json(200, item);
-//   });
-// });
 
-// app.post("/math-game/player", function (req, res) {
-//   console.log("NU SÅ!, %s", req.param("id"));
-//   removePlayer({"id": req.param("id")}, function (item, err) {
-//     res.json(200, item);
-//   });
-// });
+app.get("/math-game/player", function (req, res) {
+  var name = req.param("name")
+    , pass = req.param("pass");
+  console.log("%s :: NU SÅ, GET, [%s / %s]", new Date, name, pass);
+  getPlayer(name, function (item, err) {
+    var json = {
+      "error": true
+      , "msg": "No such player"
+    };
+    if (item) {
+      if (item.pass == pass) {
+        json = item;
+      }
+      else {
+        json.msg = "Wrong password";
+      }
+      res.json(200, json);
+      return;
+    }
+    json = {"name": name, "pass": pass};
+    savePlayer(json, function (err) {
+      if (err) {
+        json = {"error": JSON.stringify(err)}
+      }
+      else {
+        json.created = true;
+      }
+      res.json(err?500:200, json);
+    });
+  });
+});
 
-// app.get("/math-game/players/", function (req, res) {
-//   getAllPlayers(function (items, err) {
-//     console.log(items);
-//     res.json(200, items);
-//   });  
-  
-// });
 
+
+
+// delete or update player
+app.post("/math-game/player", function (req, res) {
+  var name = req.param("name")
+    , admin = "admin" == req.param("admin")
+    , json = {"access-denied": true};
+  console.log("remove by name: [%s], admin: %s", name, admin);
+  if (!admin) {
+    return res.json(200, json);
+  }
+  if ("true" == req.param("delete")) {
+    removePlayer(name, function (err) {
+      json = err ? {"error": JSON.stringify(err)} : {"removed": name};
+      res.json(err?500:200, json);
+    });
+    return;
+  }
+  var item = JSON.parse(JSON.stringify(req.params, ["name", "data", "achievments", "pass", "created"]));
+  updatePlayer(item, function (err) {
+    json = err ? {"error": JSON.stringify(err)} : item;
+    res.json(err?500:200, json);
+  });
+});
+
+// list players
+app.get("/math-game/players", function (req, res) {
+  getAllPlayers(function (items, err) {
+    res.json(err?500:200, err?[]:items);
+  });
+
+});
+*/
 // Redirects to cater for legacy urls from old php site
 app.get("/maps/mc_npup", doLegacyUrls);
 app.get("/maps/mc_npup*", doLegacyUrls);

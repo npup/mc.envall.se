@@ -44,6 +44,7 @@
   border-radius: 5px;
   padding: 0.5em;
   text-align: center;
+  margin-bottom: 0.6em;
 }
 #math-game input.answer {
   width: 4em;
@@ -93,6 +94,11 @@
   border: 3px solid #e2e2e2;
   border-radius: 10px;
   padding: 1em;
+}
+#math-game .status .player-name {
+  background: #fff;
+  border-radius: 4px;
+  padding: 0 0.5em 0.2em;
 }
 #math-game .status .stats {
   margin: 0 0 1em 0;
@@ -194,9 +200,20 @@
 #math-game .mul-options {
   display: none;
 }
+#math-game .mul-options select {
+  background-color: #fefefe;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 0.2em;
+}
 #math-game input[type=radio][name=game-type][value=multiplikation]:checked ~ .mul-options {
-  display: block;
+  display: inline;
+  margin-left: 1em;
 }
 #math-game .math-game-start input[type=submit] {
-  display: none;
+  display: inherit;
+  margin-left: 10em;
+}
+#math-game .math-game-start input[name=pass] {
+  width: 4em;
 }
