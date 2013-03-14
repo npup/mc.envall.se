@@ -446,7 +446,7 @@ var mathGame = (function () {
         }
         , "post": function (view) {
           var game = this
-            , playerName = game.post.nick.toLowerCase().trim()
+            , playerName = game.post.nick.trim()
 //            , playerPass = game.post.pass.trim();
           if (playerName == "") {
             game.showMsg("Namn får ej vara blankt", {"fade": true, "type": "fail"});

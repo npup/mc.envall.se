@@ -21,7 +21,7 @@ var mathGame; // required module
   var storage = (function () {
     var storagePrefix = "mg-";
     function getKey(player) {
-      return storagePrefix+player.name;
+      return storagePrefix+player.name.toLowerCase();
     }
     return {
       "getPlayerData": function (player) {
