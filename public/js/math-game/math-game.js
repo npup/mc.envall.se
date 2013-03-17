@@ -381,7 +381,7 @@ var mathGame = (function () {
 
     var statusTemplate = [
       "<div class=status>"
-      , "<span class=player-name>%player_name%</span>"
+      , "<span class=player-name>%player_name% <button title='Ta bort spelaren' value=delete-player onclick='if (confirm(\"Ta bort spelaren (uppnådda mål försvinner)?\")) {game.player.delete();location.href=\"/math-game\";} return false;'>"+Char.CROSS+"</button></span>"
       , "<dl class=stats>"
       , "  <dt>Nivå</dt><dd><a href=#show-achievments>%level%</a></dd>"
       , "  <dt>Antal rundor</dt><dd>%nr_of_rounds%</dd>"
