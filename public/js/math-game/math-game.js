@@ -29,6 +29,7 @@ var mathGame = (function () {
   var globalActions = {
     "show-achievments": function (elem) {
       this.showAchievments();
+      this.elem.querySelector(".show-achievments").focus();
     }
     , "hide-msg": function (elem) {
       this.hideMsg();
@@ -50,14 +51,15 @@ var mathGame = (function () {
     instance.elem = elem;
     instance.views = views.create();
     instance.post = {}; // data "posted" from previous view
-    elem.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var form = e.target;
-      instance.process(form);
-    }, true);
     elem.addEventListener("click", function (e) {
       var target = e.target, tmp, action
         , nodeName = target.nodeName.toLowerCase();
+      if (nodeName == "input" && target.type == "submit") {
+        e.preventDefault();
+        e.stopPropagation();
+        instance.process(target.form);
+        return;
+      }
       if (nodeName=="a") {
         tmp = target.getAttribute("href");
         tmp && tmp.length>1 && (action = tmp.substring(1));
@@ -65,7 +67,11 @@ var mathGame = (function () {
       else if (nodeName=="button") {
         action = target.value;
       }
-      "function" == typeof globalActions[action] && (globalActions[action].call(instance, target));
+      if ("function" == typeof globalActions[action]) {
+        globalActions[action].call(instance, target);
+        e.preventDefault();
+        e.stopPropagation();
+      }
     }, false);
     elem.addEventListener("keypress", function (e) {
       if (e.keyCode==27) {return instance.hideMsg();} // hide msg on ESC
@@ -217,7 +223,7 @@ var mathGame = (function () {
       instance.showView(next.name, next.callback);
     }
   }; // 178 321 324 327 324 331
-  
+
   function init(instance) {
     instance.elem.innerHTML = "";
     instance.showView("start");
@@ -383,7 +389,7 @@ var mathGame = (function () {
       "<div class=status>"
       , "<span class=player-name>%player_name% <button title='Ta bort spelaren' value=delete-player onclick='if (confirm(\"Ta bort spelaren (uppnådda mål försvinner)?\")) {game.player.delete();location.href=\"/math-game\";} return false;'>"+Char.CROSS+"</button></span>"
       , "<dl class=stats>"
-      , "  <dt>Nivå</dt><dd><a href=#show-achievments>%level%</a></dd>"
+      , "  <dt>Nivå</dt><dd>%level% <button class=show-achievments value=show-achievments title='Information om klarade uppdrag'>Info</button></dd>"
       , "  <dt>Antal rundor</dt><dd>%nr_of_rounds%</dd>"
       , "  <dt>Antal frågor</dt><dd>%nr_of_questions%</dd>"
       , "  <dt>Rätta svar</dt><dd>%score% (%percent_correct%)</dd>"
@@ -394,7 +400,7 @@ var mathGame = (function () {
         // somehow rip this out to show only unfinished tasks, and "gratz" when no tasks left
         return [
           "<div class='achievments %achievments_class%'>"
-          , "<h5>Uppdrag:</h5>"
+          , "<h5>Aktuella uppdrag:</h5>"
           , "  <dl>"
           , "    <dt class='%achievment_class0%'>%achievment0_name% &dash;</dt>", "<dd>%achievment0_descr%</dd>"
           , "    <dt class='%achievment_class1%'>%achievment1_name% &dash;</dt>", "<dd>%achievment1_descr%</dd>"
@@ -419,22 +425,31 @@ var mathGame = (function () {
           }
           var val = "<input type=radio id=game-type-"+type+" name=game-type value="+type+" "+(o[type].checked?"checked":"")+"> <label for=game-type-"+type+">"+(o[type].symbol)+"</label>";
           if (type == "addition" || type == "subtraction") {
-            return val;
+            val += ["<label class='mg-options mg-options-"+type+"'>Högsta ingående tal <select name=limit-"+type+">"
+              , "  <option value=100 selected>100</option>"
+              , "  <option value=50>50</option>"
+              , "  <option value=20>20</option>"
+              , "  <option value=10>10</option>"
+              , "<select></label>"
+
+            ].join("");
           }
-          val += ["<label class=mul-options>Tabell <select name=mul-tables>"
-            , "  <option value=all selected>Alla</option>"
-            , "  <option value=1>1</option>"
-            , "  <option value=2>2</option>"
-            , "  <option value=3>3</option>"
-            , "  <option value=4>4</option>"
-            , "  <option value=5>5</option>"
-            , "  <option value=6>6</option>"
-            , "  <option value=7>7</option>"
-            , "  <option value=8>8</option>"
-            , "  <option value=9>9</option>"
-            , "  <option value=10>10</option>"
-            , "</select></label>"
-          ].join("");
+          else {
+            val += ["<label class='mg-options mg-options-mul'>Tabell <select name=mul-tables>"
+              , "  <option value=all selected>Alla</option>"
+              , "  <option value=1>1</option>"
+              , "  <option value=2>2</option>"
+              , "  <option value=3>3</option>"
+              , "  <option value=4>4</option>"
+              , "  <option value=5>5</option>"
+              , "  <option value=6>6</option>"
+              , "  <option value=7>7</option>"
+              , "  <option value=8>8</option>"
+              , "  <option value=9>9</option>"
+              , "  <option value=10>10</option>"
+              , "</select></label>"
+            ].join("");
+          }
           return val;
         }).join("<br>")
         , "<br><input type=submit class=submit value=Starta >"
@@ -470,7 +485,9 @@ var mathGame = (function () {
           game.player = player;
           game.type = game.post["game-type"];
           game.mulOptions = {
-            "tables": game.post["mul-tables"] == "all" ? null : parseInt(game.post["mul-tables"])
+            "tables": game.post["mul-tables"] == "all" ? null : parseInt(game.post["mul-tables"], 10)
+            , "maxAdditionPart": "undefined" == typeof game.post["limit-addition"] ? null : parseInt(game.post["limit-addition"], 10)
+            , "maxSubtractionPart": "undefined" == typeof game.post["limit-subtraction"] ? null : parseInt(game.post["limit-subtraction"], 10)
           };
           return forward.create("round");
         }
@@ -519,8 +536,12 @@ var mathGame = (function () {
           }
           
           if (isAddition || isSubtraction) {
-            f0 = f0 * Math.ceil(Math.random()*10);
-            f1 = f1 * Math.ceil(Math.random()*10);
+            var maxTerm = isAddition ? instance.mulOptions.maxAdditionPart : instance.mulOptions.maxSubtractionPart;
+            if (maxTerm === null) {
+              maxTerm = 100;
+            }
+            f0 = f0 * Math.ceil(Math.random()*maxTerm / 10);
+            f1 = f1 * Math.ceil(Math.random()*maxTerm / 10);
             if (isSubtraction && f1 > f0) {
               f0 = [f1, f1=f0][0];
             }
@@ -674,7 +695,7 @@ var mathGame = (function () {
       ]
       .concat(formContent)
       .concat(["</form>"
-        , "<button class=quit value=quit>Avsluta</button>"
+        , "<button class=quit value=quit title=Avsluta spelet>Avsluta</button>"
         , "<div class=msg-container></div>"
         , "</div>"
       ]);

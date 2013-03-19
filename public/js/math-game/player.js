@@ -183,7 +183,8 @@ var mathGame; // required module
       , "getHTML": function () {
         var instance = this
           , lines = [
-          "Uppdrag:"
+          "<strong>Uppdrag</strong>"
+          ,  "<p style='text-align: left;'>Avklarade uppdrag är markerade med en stjärna. Peka på uppdrag för att se information om dem. <i>ESC</i> för att stänga denna ruta.</p>"
           , "<ul class=achievments-list>"
         ].concat((function () {
           var arr = [], item, doneDateStr = "";

@@ -204,22 +204,30 @@
   padding: 0.2em;
   border-radius: 0 0 4px 4px;
 }
-#math-game .mul-options {
+#math-game .mg-options {
   display: none;
 }
-#math-game .mul-options select {
+#math-game .mg-options select {
   background-color: #fefefe;
   border: 2px solid #ccc;
   border-radius: 5px;
   padding: 0.2em;
 }
-#math-game input[type=radio][name=game-type][value=multiplikation]:checked ~ .mul-options {
+#math-game input[type=radio][name=game-type][value=multiplikation]:checked ~ .mg-options-mul {
+  display: inline;
+  margin-left: 1em;
+}
+#math-game input[type=radio][name=game-type][value=addition]:checked ~ .mg-options-addition {
+  display: inline;
+  margin-left: 1em;
+}
+#math-game input[type=radio][name=game-type][value=subtraction]:checked ~ .mg-options-subtraction {
   display: inline;
   margin-left: 1em;
 }
 #math-game .math-game-start input[type=submit] {
   display: inherit;
-  margin-left: 10em;
+  margin-top: 1em;
 }
 #math-game .math-game-start input[name=pass] {
   width: 4em;
@@ -238,4 +246,16 @@
   position: absolute;
   right: 7em;
   top: 0;
+}
+#math-game .show-achievments {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  font-family: Courier, Sans-serif;
+  font-size: 0.8em;
+  padding-top: 2px;
+  vertical-align: bottom;
+}
+#math-game .show-achievments:hover {
+  border-color: #888;
 }
